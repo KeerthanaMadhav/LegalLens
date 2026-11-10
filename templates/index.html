@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LegalLens – Basic Rental Agreement Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+  <!-- A. HEADER -->
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo">LegalLens</h1>
+      <p class="subtitle">Basic Rental Agreement Analyzer</p>
+      <p class="description">
+        Upload a text-based PDF rental agreement. LegalLens extracts key details and uses
+        a set of predefined rules to check which information is present or missing.
+        It is a document completeness checker, not a legal advisor.
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- B. UPLOAD SECTION (hidden when printing) -->
+    <section class="card no-print" id="upload-section" aria-labelledby="upload-heading">
+      <h2 id="upload-heading">Upload agreement</h2>
+
+      <div id="drop-area" class="drop-area">
+        <p>Drag and drop a PDF here, or</p>
+        <!-- The real file input is hidden; the label acts as the button -->
+        <input type="file" id="file-input" accept="application/pdf,.pdf" hidden>
+        <label for="file-input" class="button button-secondary" id="choose-button" tabindex="0">Choose PDF file</label>
+      </div>
+
+      <p id="file-info" class="file-info" hidden>
+        <strong id="file-name"></strong> <span id="file-size"></span>
+      </p>
+
+      <!-- Validation / server errors appear here -->
+      <p id="error-message" class="error-message" role="alert" hidden></p>
+
+      <button type="button" id="analyze-button" class="button button-primary">Analyze Document</button>
+    </section>
+
+    <!-- C. LOADING STATE -->
+    <section id="loading-section" class="loading no-print" role="status" aria-live="polite" hidden>
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Analyzing your rental agreement...</p>
+    </section>
+
+    <!-- D, E, F, G. RESULTS (hidden until a real response arrives) -->
+    <div id="results-section" hidden>
+
+      <div class="results-toolbar no-print">
+        <h2>Analysis report</h2>
+        <button type="button" id="print-button" class="button button-secondary">Print / Save Report</button>
+      </div>
+      <h2 class="print-only">LegalLens – Analysis report</h2>
+
+      <!-- D. Extracted fields -->
+      <section class="card" aria-labelledby="fields-heading">
+        <h2 id="fields-heading">Extracted fields</h2>
+        <ul id="fields-list" class="fields-list"></ul>
+      </section>
+
+      <!-- E. Rule-based findings -->
+      <section class="card" aria-labelledby="findings-heading">
+        <h2 id="findings-heading">Rule-based findings</h2>
+        <p class="note">
+          These findings show information the rules could not find in the document.
+          Missing information is not proof that an agreement is non-compliant.
+        </p>
+        <ul id="findings-list" class="findings-list"></ul>
+      </section>
+
+      <!-- F. Extracted text (collapsed by default) -->
+      <section class="card no-print-text">
+        <details>
+          <summary>View extracted document text</summary>
+          <pre id="extracted-text" class="extracted-text"></pre>
+        </details>
+      </section>
+    </div>
+
+  </main>
+
+  <footer class="site-footer no-print">
+    <div class="container">LegalLens – college AI project. Not legal advice.</div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
