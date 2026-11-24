@@ -79,10 +79,11 @@ def analyze():
         results = analyze_text(extracted_text)
 
         return jsonify({
-            "success": True,
-            "agreement": results["agreement"],
-            "findings": results["findings"]
-        }), 200
+   		"success": True,
+	   	"agreement": results["agreement"],
+    		"findings": results["findings"],
+    		"extracted_text": extracted_text
+}), 200
 
     except Exception as e:
         print(f"Analysis error: {e}")
